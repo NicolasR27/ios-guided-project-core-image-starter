@@ -4,17 +4,23 @@ import CoreImage.CIFilterBuiltins
 import Photos
 
 class PhotoFilterViewController: UIViewController {
-
-   private var originalImage: UIImage?
-  private var context = CIContext(options: nil)
+    
+    private var originalImage: UIImage?{
+        didSet{
+            updateViews()
+            
+        }
+    }
+    
+    private var context = CIContext(options: nil)
     
     
     
-	@IBOutlet weak var brightnessSlider: UISlider!
-	@IBOutlet weak var contrastSlider: UISlider!
-	@IBOutlet weak var saturationSlider: UISlider!
-	@IBOutlet weak var imageView: UIImageView!
-	
+    @IBOutlet weak var brightnessSlider: UISlider!
+    @IBOutlet weak var contrastSlider: UISlider!
+    @IBOutlet weak var saturationSlider: UISlider!
+    @IBOutlet weak var imageView: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -23,8 +29,27 @@ class PhotoFilterViewController: UIViewController {
         
         print(filter.attributes)
         
+        // Test the filter quickly
+        originalImage = imageView.image
+        
     }
-  // what happens if i apply a filter multiple times
+    
+    // where should i call updateViews
+    // slider
+    //did set
+    
+    
+    func updateViews(){
+        if  let originalImage = originalImage {
+            imageView.image = filterImage(originalImage)
+            
+        }else{
+            imageView.image = nil // placeholder image
+        }
+        
+    }
+    
+    
     func filterImage(_ image: UIImage) -> UIImage? {
         // UImage -> CGImage(core graphic) -> CImage(CoreImage)
         guard let  cgImage = image.cgImage else { return nil }
@@ -41,44 +66,45 @@ class PhotoFilterViewController: UIViewController {
         filter.contrast = contrastSlider.value
         filter.saturation = saturationSlider.value
         
-        guard let outputCIImage = filter.outputImage else {return nil}
+        guard let outputCIImage = filter.outputImage else { return nil }
         
         
         // Render the image
-        guard let outputCGImage = context.createCGImage(outputCIImage, from: CGRect(origin: .zero, size: image.size)) else {
-            return nil
-            
-            }
+        guard let outputCGImage = context.createCGImage(outputCIImage,
+                                                        from: CGRect(origin: .zero, size: image.size)) else {
+                                                            return nil
+                                                            
+        }
         
         // CIImage -> CGImage -> UIImage
-       return UIImage(cgImage: outputCGImage)
+        return UIImage(cgImage: outputCGImage)
         
     }
-	
-	// MARK: Actions
-	
-	@IBAction func choosePhotoButtonPressed(_ sender: Any) {
-		// TODO: show the photo picker so we can choose on-device photos
-		// UIImagePickerController + Delegate
-	}
-	
-	@IBAction func savePhotoButtonPressed(_ sender: UIButton) {
-		// TODO: Save to photo library
-	}
-	
-
-	// MARK: Slider events
-	
-	@IBAction func brightnessChanged(_ sender: UISlider) {
-
-	}
-	
-	@IBAction func contrastChanged(_ sender: Any) {
-
-	}
-	
-	@IBAction func saturationChanged(_ sender: Any) {
-
-	}
+    
+    // MARK: Actions
+    
+    @IBAction func choosePhotoButtonPressed(_ sender: Any) {
+        // TODO: show the photo picker so we can choose on-device photos
+        // UIImagePickerController + Delegate
+    }
+    
+    @IBAction func savePhotoButtonPressed(_ sender: UIButton) {
+        // TODO: Save to photo library
+    }
+    
+    
+    // MARK: Slider events
+    
+    @IBAction func brightnessChanged(_ sender: UISlider) {
+        updateViews()
+    }
+    
+    @IBAction func contrastChanged(_ sender: Any) {
+        updateViews()
+    }
+    
+    @IBAction func saturationChanged(_ sender: Any) {
+        updateViews()
+    }
 }
 
