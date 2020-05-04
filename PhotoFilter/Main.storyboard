@@ -42,6 +42,7 @@
                                                             </label>
                                                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="-1" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="zDC-OB-nYX" userLabel="Brightness Slider">
                                                                 <rect key="frame" x="88" y="0.0" width="296" height="21.5"/>
+                                                                <color key="tintColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <connections>
                                                                     <action selector="brightnessChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="R5c-9W-xGT"/>
                                                                 </connections>
@@ -59,6 +60,8 @@
                                                             </label>
                                                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.25" maxValue="4" translatesAutoresizingMaskIntoConstraints="NO" id="fcb-mt-jU4" userLabel="Contrast Slider">
                                                                 <rect key="frame" x="88" y="0.0" width="296" height="21.5"/>
+                                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                                <color key="tintColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <connections>
                                                                     <action selector="contrastChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="wdg-MB-Ixs"/>
                                                                 </connections>
@@ -76,6 +79,7 @@
                                                             </label>
                                                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.0" maxValue="2" translatesAutoresizingMaskIntoConstraints="NO" id="0ph-an-xG5" userLabel="Saturation Slider">
                                                                 <rect key="frame" x="88" y="0.0" width="296" height="21.5"/>
+                                                                <color key="tintColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <connections>
                                                                     <action selector="saturationChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="xr7-Pb-Txz"/>
                                                                 </connections>
@@ -133,6 +137,7 @@
                                     <action selector="choosePhotoButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="NL4-ph-wVJ"/>
                                 </connections>
                             </button>
+                            <color key="tintColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
