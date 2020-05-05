@@ -10,7 +10,7 @@ import UIKit
 
 extension UIImage {
     
-    /// Resize the image to a max dimension from size parameter
+    
     func imageByScaling(toSize size: CGSize) -> UIImage? {
         guard size.width > 0 && size.height > 0 else { return nil }
         
@@ -28,7 +28,7 @@ extension UIImage {
         }
     }
     
-    /// Renders the image if the pixel data was rotated due to orientation of camera
+    
     var flattened: UIImage {
         if imageOrientation == .up { return self }
         return UIGraphicsImageRenderer(size: size, format: imageRendererFormat).image { context in
