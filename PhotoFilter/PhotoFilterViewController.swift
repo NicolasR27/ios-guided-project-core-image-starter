@@ -15,14 +15,13 @@ class PhotoFilterViewController: UIViewController {
     private var scaledImage:UIImage?{
         didSet{
             updateViews()
-            //resize a scaledImage any time  this property is set, so that the ui can update
-            // "faster with live preview
+            
             
             guard let  originalImage = originalImage else  {return}
             
             var scaledSize = imageView.bounds.size
             let scale = UIScreen.main.scale// 1x(no iphone)2x 3x
-        
+            
             // Debug statement ,take these out for your final submissions
             print("image size: \(originalImage.size)")
             print("size: \(scaledSize)")
@@ -125,10 +124,36 @@ class PhotoFilterViewController: UIViewController {
     }
     
     @IBAction func savePhotoButtonPressed(_ sender: UIButton) {
-        // TODO: Save to photo library
+        guard let originalImage = originalImage else { return }
+        
+        
+        guard let processedImage = filterImage(originalImage) else { return }
+        PHPhotoLibrary.requestAuthorization { (status) in
+            
+            guard status == .authorized else {return}
+            
+            
+            PHPhotoLibrary.shared().performChanges({
+                
+               
+                PHAssetCreationRequest.creationRequestForAsset(from: processedImage)
+            }, completionHandler: {(success,error) in
+                
+                if let error = error {
+                    NSLog("error saving photo:\(error)")
+                    return
+                }
+                
+                DispatchQueue.main.async{
+                    print("save photo")
+                }
+                
+            })
+            
+        }
+        
         
     }
-    
     
     // MARK: Slider events
     
@@ -148,10 +173,8 @@ class PhotoFilterViewController: UIViewController {
 
 extension PhotoFilterViewController: UIImagePickerControllerDelegate {
     
-   // what do i want to do when finished picking?
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-       
+func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
         
         if let image = info[.originalImage] as? UIImage{
             originalImage = image
@@ -159,9 +182,9 @@ extension PhotoFilterViewController: UIImagePickerControllerDelegate {
         }
         picker.dismiss(animated: true)
         
-       
+        
     }
-   
+    
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true)
     }
@@ -171,3 +194,4 @@ extension PhotoFilterViewController: UIImagePickerControllerDelegate {
 extension PhotoFilterViewController: UINavigationControllerDelegate {
     
 }
+
