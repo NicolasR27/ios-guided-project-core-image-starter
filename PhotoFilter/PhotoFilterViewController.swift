@@ -12,7 +12,7 @@ class PhotoFilterViewController: UIViewController {
         }
     }
     
-    private var scaledImage:UIImage?{
+    private var scaledImage: UIImage? {
         didSet{
             updateViews()
             
@@ -20,9 +20,9 @@ class PhotoFilterViewController: UIViewController {
             guard let  originalImage = originalImage else  {return}
             
             var scaledSize = imageView.bounds.size
-            let scale = UIScreen.main.scale// 1x(no iphone)2x 3x
+            let scale = UIScreen.main.scale
             
-            // Debug statement ,take these out for your final submissions
+            
             print("image size: \(originalImage.size)")
             print("size: \(scaledSize)")
             print("scale:\(scale)")
